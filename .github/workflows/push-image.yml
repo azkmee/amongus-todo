@@ -12,7 +12,7 @@ jobs:
   
     - name: Run Snyk to check for docker image
       continue-on-error: false
-      uses: synk/actions/docker@master
+      uses: snyk/actions/docker@master
       env:
         SNYK_TOKEN:${{ secrets.SNYK_TOKEN }}
       with:
