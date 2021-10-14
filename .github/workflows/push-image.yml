@@ -1,0 +1,22 @@
+name: ci
+
+on:[push]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    
+    - name: Build docker image
+      run: docker build . --file Dockerfile --tag azmiaang/amongus-todo
+  
+    - name: Run Snyk to check for docker image
+      continue-on-error: false
+      uses: synk/actions/docker@master
+      env:
+        SNYK_TOKEN:${{ secrets.SNYK_TOKEN }}
+      with:
+        image: azmiaang/amongus-todo
+    
