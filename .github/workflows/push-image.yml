@@ -7,6 +7,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     
+    - name: Update 
+      run: apt-get update && apt-get upgrade
+    
     - name: Build docker image
       continue-on-error: false
 
