@@ -37,6 +37,18 @@ jobs:
       with:
         push: true
         tags: azmiaang/amongus-todo:latest
+        
+  push-heroku:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: akhileshns/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+        heroky_app_name: "powerx-devtool-hw3"
+        heroku_email: "azmi_aang@hotmail.com"
+        usedocker: true
    
     
     
