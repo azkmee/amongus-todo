@@ -8,13 +8,15 @@ jobs:
     - uses: actions/checkout@v1
     
     - name: Build docker image
+      continue-on-error: false
+
       run: docker build . --file Dockerfile --tag azmiaang/amongus-todo
   
     - name: Run Snyk to check for docker image
-      continue-on-error: false
       uses: snyk/actions/docker@master
       env:
-        SNYK_TOKEN:${{ secrets.SNYK_TOKEN }}
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         image: azmiaang/amongus-todo
+    
     
