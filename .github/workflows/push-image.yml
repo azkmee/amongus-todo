@@ -33,7 +33,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build and push
-      run: docker push azmi/amongus-todo:latest
+      run: docker push azmiaang/amongus-todo:latest
    
     
     
