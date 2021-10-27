@@ -1,7 +1,21 @@
 name: ci
-on: push
+on: 
+  push:
+    branches: [capstone]
+
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: testing
+      - uses: actions/setup-node@v2
+      - name: Install dependencies
+        run: npm ci
+      - run: npm test
+
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
