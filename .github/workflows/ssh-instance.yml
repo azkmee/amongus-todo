@@ -11,9 +11,9 @@ jobs:
     - name: sshcommands
       uses: appleboy/ssh-action@master
       with:
-        proxy_host: ${{ secrets.AWS_HOST }}
-        proxy_username: $ {{ secrets.AWS_USERNAME }}
-        proxy_key: ${{ secrets.AWS_KEY }}
+        HOST: ${{ secrets.AWS_HOST }}
+        USERNAME: $ {{ secrets.AWS_USERNAME }}
+        KEY: ${{ secrets.AWS_KEY }}
         script: whoami
 
 
