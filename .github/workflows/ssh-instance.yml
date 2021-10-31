@@ -11,9 +11,12 @@ jobs:
     - name: sshcommands
       uses: garygrossgarten/github-action-ssh@release
       with:
+        command: whoami
         host: ${{ secrets.AWS_HOST }}
         username: $ {{ secrets.AWS_USERNAME }}
         privateKey: ${{ secrets.AWS_KEY }}
-        command: whoami
+      env:
+        CI: true
+
 
 
