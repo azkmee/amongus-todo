@@ -9,14 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: sshcommands
-      uses: garygrossgarten/github-action-ssh@release
+      uses: appleboy/ssh-action@master
       with:
-        command: whoami
         host: ${{ secrets.AWS_HOST }}
         username: $ {{ secrets.AWS_USERNAME }}
-        privateKey: ${{ secrets.AWS_KEY }}
-      env:
-        CI: true
+        key_path: ./.ssh/id_rsa
+        scripts: whoami
 
 
 
