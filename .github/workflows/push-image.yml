@@ -62,7 +62,7 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           host: ${{ secrets.AWS_HOST }}
           script: |
-            docker pull
+            docker pull azmiaang/amongus-todo
             docker container restart amongus-todo
           key: ${{ secrets.AWS_KEY }}
    
