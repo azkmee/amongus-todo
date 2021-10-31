@@ -16,3 +16,5 @@ jobs:
         key: ${{ secrets.AWS_KEY }}
         port: 22
         script: whoami
+
+
