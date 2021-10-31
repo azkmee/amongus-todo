@@ -13,8 +13,8 @@ jobs:
       with:
         host: ${{ secrets.AWS_HOST }}
         username: $ {{ secrets.AWS_USERNAME }}
-        key_path: ./.ssh/id_rsa
-        scripts: whoami
+        key_path: ~/.ssh/id_rsa
+        script: whoami
 
 
 
