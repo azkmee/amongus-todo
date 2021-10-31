@@ -11,10 +11,22 @@ jobs:
     - name: sshcommands
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.AWS_HOST }}
         username: $ {{ secrets.AWS_USERNAME }}
-        key_path: ../../.ssh/id_rsa
+        host: ${{ secrets.AWS_HOST }}
         script: whoami
+        key: ${{ secrets.AWS_KEY }}
+  second:
+    name: whoami2
+    runs-on: ubuntu-latest
+    steps:
+    - name: sshcommands2
+      uses: appleboy/ssh-action@master
+      with:
+        username: $ {{ secrets.AWS_USERNAME }}
+        host: ${{ secrets.AWS_HOST }}
+        script: whoami
+        key_path: ./.ssh/id_rsa
+
 
 
 
