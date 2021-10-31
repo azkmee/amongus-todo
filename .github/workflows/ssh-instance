@@ -1,0 +1,16 @@
+name: ssh continuous deployment
+on: 
+  push:
+    branches: [capstone]
+
+jobs:
+  whoami:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.AWS_HOST }}
+        username: $ {{ secrets.AWS_USERNAME }}
+        key: ${{ secrets.AWS_KEY }}
+        port: 22
+        script: whoami
