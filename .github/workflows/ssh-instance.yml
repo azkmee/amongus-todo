@@ -11,7 +11,7 @@ jobs:
     - name: sshcommands
       uses: appleboy/ssh-action@master
       with:
-        username: $ {{ secrets.AWS_USERNAME }}
+        username: ${{ secrets.AWS_USERNAME }}
         host: ${{ secrets.AWS_HOST }}
         script: whoami
         key: ${{ secrets.AWS_KEY }}
@@ -23,7 +23,7 @@ jobs:
     - name: sshcommands2
       uses: appleboy/ssh-action@master
       with:
-        username: $ {{ secrets.AWS_USERNAME }}
+        username: ${{ secrets.AWS_USERNAME }}
         host: ${{ secrets.AWS_HOST }}
         script: whoami
         key_path: ./.ssh/id_rsa
