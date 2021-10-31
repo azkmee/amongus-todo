@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: sshcommands
-      uses: appleboy/ssh-action@master
+      uses: garygrossgarten/github-action-ssh@release
       with:
-        HOST: ${{ secrets.AWS_HOST }}
-        USERNAME: $ {{ secrets.AWS_USERNAME }}
-        KEY: ${{ secrets.AWS_KEY }}
+        host: ${{ secrets.AWS_HOST }}
+        username: $ {{ secrets.AWS_USERNAME }}
+        privateKey: ${{ secrets.AWS_KEY }}
         script: whoami
 
 
