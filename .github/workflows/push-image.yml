@@ -15,7 +15,7 @@ jobs:
       run: |
         echo "AWS_DEFAULT_REGION=ap-southeast-1" >> $GITHUB_ENV
         echo "AWS_SG_NAME=default" >> $GITHUB_ENV
-        
+        echo ${{ steps.ip.outputs.ipv4 }}/32
   test:
     runs-on: ubuntu-latest
     steps:
