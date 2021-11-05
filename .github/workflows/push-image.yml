@@ -4,6 +4,7 @@ on:
     branches: [capstone]
 
 jobs:
+        
   test:
     runs-on: ubuntu-latest
     steps:
@@ -56,7 +57,24 @@ jobs:
       needs: push-docker
       runs-on: ubuntu-latest
       steps:
-      - name: sshcommands
+      - name: Get Github action IP
+        id: ip
+        uses: haythem/public-ip@v1.2
+        
+      - name: Setting environment variables..
+        run: |
+          echo "AWS_DEFAULT_REGION=ap-southeast-1" >> $GITHUB_ENV
+          echo "AWS_SG_NAME=terraform-20211027050001485200000001" >> $GITHUB_ENV
+          
+      - name: Add Github Actions IP to Security group
+        run: |
+          aws ec2 authorize-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32    
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
+      
+      - name: ssh to ec2
         uses: appleboy/ssh-action@master
         with:
           username: ${{ secrets.AWS_USERNAME }}
@@ -67,6 +85,15 @@ jobs:
             docker pull azmiaang/amongus-todo
             docker run -d -p 8000:3000 --name=amongus-todo azmiaang/amongus-todo
           key: ${{ secrets.AWS_KEY }}
+          
+      - name: Add Github Actions IP to Security group
+        run: |
+          aws ec2 revoke-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32    
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
+        if: always()
    
     
     
