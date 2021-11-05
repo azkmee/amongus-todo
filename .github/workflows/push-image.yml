@@ -79,8 +79,7 @@ jobs:
         with:
           username: ${{ secrets.AWS_USERNAME }}
           host: ${{ secrets.AWS_HOST }}
-          script: 
-#               whoami
+          script: |
             docker stop amongus-todo
             docker rm amongus-todo
             docker pull azmiaang/amongus-todo
