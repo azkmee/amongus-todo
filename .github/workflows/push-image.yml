@@ -16,45 +16,45 @@ jobs:
       run: npm ci
     - run: npm test
 
-#   build:
-#     needs: test
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@v1
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
     
-#     - name: Build docker image
-#       continue-on-error: false
+    - name: Build docker image
+      continue-on-error: false
 
-#       run: docker build . --file Dockerfile --tag azmiaang/amongus-todo
+      run: docker build . --file Dockerfile --tag azmiaang/amongus-todo
   
-#     - name: Run Snyk to check for docker image
-#       uses: snyk/actions/docker@master
-#       env:
-#         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-#       with:
-#         image: azmiaang/amongus-todo
-#         args: --severity-threshold=low
+    - name: Run Snyk to check for docker image
+      uses: snyk/actions/docker@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        image: azmiaang/amongus-todo
+        args: --severity-threshold=low
         
-#   push-docker:
-#     needs: build
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Set Up docker Buildx
-#       uses: docker/setup-buildx-action@v1
+  push-docker:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set Up docker Buildx
+      uses: docker/setup-buildx-action@v1
       
-#     - name: Login Docker
-#       uses: docker/login-action@v1
-#       with: 
-#         username: ${{ secrets.DOCKERHUB_USERNAME }}
-#         password: ${{ secrets.DOCKERHUB_TOKEN }}
-#     - name: Build and push
-#       uses: docker/build-push-action@v2
-#       with:
-#         push: true
-#         tags: azmiaang/amongus-todo:latest
+    - name: Login Docker
+      uses: docker/login-action@v1
+      with: 
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: azmiaang/amongus-todo:latest
         
   ec2-docker-run:
-#       needs: whitelist-git-ip
+      needs: push-docker
       runs-on: ubuntu-latest
       steps:
       - name: Get Github action IP
@@ -80,11 +80,11 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           host: ${{ secrets.AWS_HOST }}
           script: 
-              whoami
-#             docker stop amongus-todo
-#             docker rm amongus-todo
-#             docker pull azmiaang/amongus-todo
-#             docker run -d -p 8000:3000 --name=amongus-todo azmiaang/amongus-todo
+#               whoami
+            docker stop amongus-todo
+            docker rm amongus-todo
+            docker pull azmiaang/amongus-todo
+            docker run -d -p 8000:3000 --name=amongus-todo azmiaang/amongus-todo
           key: ${{ secrets.AWS_KEY }}
           
       - name: Add Github Actions IP to Security group
