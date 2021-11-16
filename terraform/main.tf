@@ -1,6 +1,6 @@
 variable "name" {
     type = string
-    default = "capstone-instance-ssh"
+    default = "capstone-instance-terraform-ssh"
 }
 
 locals {
@@ -51,7 +51,7 @@ resource "aws_security_group" "main" {
     ]
     ingress = [
     {
-        cidr_blocks      = [ "0.0.0.0/0", ]
+        cidr_blocks      = [ "121.6.39.187/32" ]
         description      = ""
         from_port        = 22
         ipv6_cidr_blocks = []
@@ -61,9 +61,9 @@ resource "aws_security_group" "main" {
         self             = false
         to_port          = 22
     },
-    {
-        cidr_blocks      = [ "0.0.0.0/0", ]
-        description      = "for api calls"
+        {
+        cidr_blocks      = [ "121.6.39.187/32", "111.65.37.103/32" ]
+        description      = "for api call"
         from_port        = 8000
         ipv6_cidr_blocks = []
         prefix_list_ids  = []
